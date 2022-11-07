@@ -16,32 +16,43 @@ Behat is an open source Behavior-Driven Development framework for PHP. It is a t
 
 ##### A ".feature" extension file that is used to define the test case in gherkin language 
 
-@customer_login
-Feature: Signing in to the store
+@customer_login //tags
+Feature: Signing in to the store                            /* line 20 - 23 has no code implementation 
     In order to view my orders
     As a Visitor
     I want to be able to log in to the store
 
-    Background:
-        Given the store operates on a single channel in "United States"
-        And there is a user "ted@example.com" identified by "bear"
+    Background:                                                                     /* runs these lines definitions 
+        Given the store operates on a single channel in "United States"                from respective files. In case of Scenrio Outline :  
+        And there is a user "ted@example.com" identified by "bear"                      Background runs or before each example*/
 
-    @ui @api
+    @ui @api // tags used
     Scenario: Sign in with email and password
         When I want to log in
-        And I specify the username as "ted@example.com"
+        And I specify the username as "ted@example.com"                         //"ted@example" is in quotes as t is a variable
         And I specify the password as "bear"
         And I log in
         Then I should be logged in
 
-##### A ".feature" extension file that is used to define the test case in gherkin language 
+##### A ".php" extension file that is used for definition of the steps of the gherkin language 
+
+final class LoginContext implements Context
+{
+    public function __construct(
+        private HomePageInterface $homePage,
+        private LoginPageInterface $loginPage
+    ) {
+    }
+
 /**
  * @When I want to log in
  */
 public function iWantToLogIn()
 {
-    $this->loginPage->tryToOpen();
-}
+    $this->loginPage->tryToOpen();         //loginPage defined in contructor above
+}                                          // tryToOpen() is a function defined in LoginPage.php
+                                           //LogInPpage class implements LogInPageInterface 
+
 
 
 /**
@@ -49,7 +60,7 @@ public function iWantToLogIn()
 */
 public function iSpecifyTheUsername(?string $username = null): void
 {
-  $this->loginPage->specifyUsername($username);
+  $this->loginPage->specifyUsername($username);     //specifyUsername simillarly is function defined in LoginPage class in LoginPage.php 
 }
 
     
@@ -68,7 +79,7 @@ public function iSpecifyThePasswordAs(?string $password = null): void
 */ 
 public function iLogIn(): void
 {
-  $this->loginPage->logIn();
+  $this->loginPage->logIn();         //loginPage defined in contructor above
 }
 
 
@@ -78,5 +89,5 @@ public function iLogIn(): void
 public function iShouldBeLoggedIn(): void
 {
   $this->homePage->verify();
-  Assert::true($this->homePage->hasLogoutButton());
-}
+  Assert::true($this->homePage->hasLogoutButton());   //homePage defined in contructor above
+}                                                     // Assert used to show if test passes or fails
