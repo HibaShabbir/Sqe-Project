@@ -44,9 +44,8 @@ final class LoginContext implements Context
     ) {
     }
 
-/**
- * @When I want to log in
- */
+
+@When I want to log in
 public function iWantToLogIn()
 {
     $this->loginPage->tryToOpen();         //loginPage defined in contructor above
@@ -55,37 +54,31 @@ public function iWantToLogIn()
 
 
 
-/**
-* @When I specify the username as :username
-*/
+
+@When I specify the username as :username
 public function iSpecifyTheUsername(?string $username = null): void
 {
   $this->loginPage->specifyUsername($username);     //specifyUsername simillarly is function defined in LoginPage class in LoginPage.php 
 }
 
     
-/**
-* @When I specify my password as :password
-*/
+
+@When I specify my password as :password
 public function iSpecifyThePasswordAs(?string $password = null): void
 {
   $this->loginPage->specifyPassword($password);
 }
 
 
-/**
-* @When I log in
-* @When I try to log in
-*/ 
+
+@When I log in
 public function iLogIn(): void
 {
   $this->loginPage->logIn();         //loginPage defined in contructor above
 }
 
 
-/**
-* @Then I should be logged in
-*/
+@Then I should be logged in
 public function iShouldBeLoggedIn(): void
 {
   $this->homePage->verify();
