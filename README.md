@@ -89,3 +89,7 @@ Feature: Signing in to the store                            /* line 20 - 23 has 
       $this->homePage->verify();
       Assert::true($this->homePage->hasLogoutButton());   //homePage defined in contructor above
     }                                                     // Assert used to show if test passes or fails
+    
+### API Testing :
+
+## Task 5 : Exploring existing Unit testing on Sylius .
