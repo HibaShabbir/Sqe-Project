@@ -36,51 +36,56 @@ Feature: Signing in to the store                            /* line 20 - 23 has 
 
 ##### A ".php" extension file that is used for definition of the steps of the gherkin language 
 
-final class LoginContext implements Context
-{
-    public function __construct(
-        private HomePageInterface $homePage,
-        private LoginPageInterface $loginPage
-    ) {
+    final class LoginContext implements Context
+    {
+        public function __construct(
+            private HomePageInterface $homePage,
+            private LoginPageInterface $loginPage
+        ) {
     }
 
 
-@When I want to log in
-public function iWantToLogIn()
-{
-    $this->loginPage->tryToOpen();         //loginPage defined in contructor above
-}                                          // tryToOpen() is a function defined in LoginPage.php
+    @When I want to log in
+
+    public function iWantToLogIn()
+    {
+        $this->loginPage->tryToOpen();         //loginPage defined in contructor above
+    }                                          // tryToOpen() is a function defined in LoginPage.php
                                            //LogInPpage class implements LogInPageInterface 
 
 
 
 
-@When I specify the username as :username
-public function iSpecifyTheUsername(?string $username = null): void
-{
-  $this->loginPage->specifyUsername($username);     //specifyUsername simillarly is function defined in LoginPage class in LoginPage.php 
-}
+    @When I specify the username as :username
+
+    public function iSpecifyTheUsername(?string $username = null): void
+    {
+      $this->loginPage->specifyUsername($username);     //specifyUsername simillarly is function defined in LoginPage class in LoginPage.php 
+    }
 
     
 
-@When I specify my password as :password
-public function iSpecifyThePasswordAs(?string $password = null): void
-{
-  $this->loginPage->specifyPassword($password);
-}
+    @When I specify my password as :password
+
+    public function iSpecifyThePasswordAs(?string $password = null): void
+    {
+      $this->loginPage->specifyPassword($password);
+    }
 
 
 
-@When I log in
-public function iLogIn(): void
-{
-  $this->loginPage->logIn();         //loginPage defined in contructor above
-}
+    @When I log in
+    
+    public function iLogIn(): void
+    {
+      $this->loginPage->logIn();         //loginPage defined in contructor above
+    }
 
 
-@Then I should be logged in
-public function iShouldBeLoggedIn(): void
-{
-  $this->homePage->verify();
-  Assert::true($this->homePage->hasLogoutButton());   //homePage defined in contructor above
-}                                                     // Assert used to show if test passes or fails
+    @Then I should be logged in
+    
+    public function iShouldBeLoggedIn(): void
+    {
+      $this->homePage->verify();
+      Assert::true($this->homePage->hasLogoutButton());   //homePage defined in contructor above
+    }                                                     // Assert used to show if test passes or fails
