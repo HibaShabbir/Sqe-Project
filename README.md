@@ -1,5 +1,22 @@
 # Sqe-Project
+## What is Sylius?
 
+Sylius is an open source ecommerce platform based on the Symfony framework. It’s built from decoupled components that can be used independently in any PHP application even if it doesn’t use Symfony. Then you can decide whether you’ll use the complete platform provided by its creators or take advantage of standalone elements to create a custom solution.
+
+## Why use Sylius ?
+
+1) Scalability: You can deploy Sylius on a single server or in the cloud on a multi-server architecture that is autoscaling. This provides great efficiency for         large projects.
+
+2) Flexibility: You can customize every part of this platform, thanks to its well-thought-out and modern architecture, and the usage of the Symfony framework.
+
+3) Possibility to apply it on multiple devices: You can easily create native mobile apps for iOS, Android, or a progressive web app, due to built-in ecommerce            application interfaces in Sylius.
+
+4) Developer friendly: This ecommerce platform ensures the highest code quality, has a strong testing environment and uses Business-Driven Development (BDD).              It means that the tests are written in a business language which accelerates the application’s testing. 
+
+5) Community : There are more than four thousand developers, product owners, and other specialists working with this tool gathered on the Sylius channel on                Slack. You can join them to ask for support or help others in solving their issues.
+
+6) Open source: You can participate in the development of this tool.
+        
 ## Task 4 : Exploring existing UI and API testing on Sylius .
 
 ### UI Testing :
@@ -91,5 +108,9 @@ Feature: Signing in to the store                            /* line 20 - 23 has 
     }                                                     // Assert used to show if test passes or fails
     
 ### API Testing :
+Sylius is an API-first solution. It means that Sylius can be used as a backend for implementing JavaScript ecommerce software like a progressive web application, single-page application, or a native mobile app. You can build an online shop that can be suitable for any size of business - a small, medium, or large enterprise.
+
+In the documentation provided on GitHub and website shows that API testing of Sylius is done in php language .
+
 
 ## Task 5 : Exploring existing Unit testing on Sylius .
