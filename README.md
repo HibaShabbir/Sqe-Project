@@ -112,5 +112,40 @@ Sylius is an API-first solution. It means that Sylius can be used as a backend f
 
 In the documentation provided on GitHub and website shows that API testing of Sylius is done in php language .
 
+#### Understading of the code (Customers login feature ):
+
+    public function it_allows_customer_to_log_in(): void     
+    {
+        $this->loadFixturesFromFiles(['authentication/customer.yaml']);
+
+        $this->client->request(       // an api post request
+            'POST',
+            '/api/v2/shop/authentication-token',      // url of the api 
+            [],
+            [],
+            self::CONTENT_TYPE_HEADER,        // set the header as per your requirements for response 
+            json_encode([                      // data(json format) as input for post request 
+                'email' => 'oliver@doe.com',   
+                'password' => 'sylius'
+            ])
+        );
+
+        $response = $this->client->getResponse();    // response var stores the response received 
+        
+        // confirmation using assertion whether resonse is as expected 
+        $this->assertResponse($response, 'shop/log_in_customer_response', Response::HTTP_OK); 
+        
+    }
+
+
+In API Testing we have some common steps or any framework used
+
+1) A base url to be concatenated with the API url.
+2) Diferent requests (post, get , push , patch)
+3) For request.get requires no data to be passed as input ( mostly tokens for session)
+4) For request.post requires data to be assed in json format 
+5) Response receieved is then used as it is or use selective parts by using jsonpath.
+6) As response receieved is also json format so you can use jsoath to et attributes (id, text , name) values and then compare it .
+7) Finally  use assertions to conclude if response received is whats expected
 
 ## Task 5 : Exploring existing Unit testing on Sylius .
