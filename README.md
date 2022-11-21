@@ -325,3 +325,31 @@ The above code is pretty simillar to the Api testing code as Sylius makes use of
 5)Entire business logic is separated from API - if it necessary we dispatch command instead mixing API logic with business logic*"
 
 The unit tests are written in the form of functions to provide modularity , clarity , flexibility and reusability.
+
+All classes with **.php** extension have there respective **ClassNameTest.php** files .
+For example the above file code is from Sylius\Tests\Api\Shop\CustomerTest.php file with it class in directory Sylius\Component\Customer\Model\Customer.php
+Here the basic functionalities of a Customer are given such as login , personal info updation , register etc . 
+
+## A unit test in the framework 
+Assuming that Sylius adds a new feature that has loyalty points for orders placed and then on this basis we have loyalty coupons as well . In such a scenario we will have to make changes to Customer.php file with a function that sums these points each time an order is placed ( an attribute protected $total_order_points; will be added).
+A function in Orders.php will also be updated such that it increments the total_order_points for a specific user as soon as the checkout procedure is completed.
+
+for unit  testng we will have the following function in CustomerTest.php
+
+/** @test */
+    public function it_counts_customers_total_order_points(): void
+    {
+        $loadedData = $this->loadFixturesFromFiles(['authentication/customer.yaml']);
+        $token = $this->logInShopUser('oliver@doe.com');
+
+        /** @var CustomerInterface $customer */
+        $customer = $loadedData['customer_oliver'];
+        $points=0;
+        $arrlength = count($customer->order_history);
+
+        for($x = 0; $x < $arrlength; $x++) {
+          points = points + $customer->order_history[$x].order_points;
+        }
+        assert($points == $customer->total_order_points , 'The test fails');
+    }
+
