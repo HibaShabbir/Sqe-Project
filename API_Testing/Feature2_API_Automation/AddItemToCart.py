@@ -59,32 +59,34 @@ tokenValue= jsonpath.jsonpath(response_json,'tokenValue')
 #requests.get() api to get a product variant so as to add it to cart . Parses it to json format and picks up  code
 response = requests.get(prodVariantsUrl, headers= headers )
 response_json =json.loads(response.text)
-prodId = jsonpath.jsonpath(response_json[0],'code')
 
-#form complete prod id
-productId="/api/v2/shop/product-variants/"+prodId[0]
+#loop for adding all the items to cart (testing or all products)
+for i in response_json:
+    prodId = jsonpath.jsonpath(i,'code')
+    print("Adding product :" + (prodId[0]))
+    #form complete prod id
+    productId="/api/v2/shop/product-variants/"+prodId[0]
 
-#add to cart api input data
-addToCartData =json.dumps({
-  'productVariant': productId ,
-  "quantity": 1
+    #add to cart api input data
+    addToCartData =json.dumps({
+      'productVariant': productId ,
+      "quantity": 1
 
-})
+    })
+    #form a Url for add to cart the item . Token Value is the value taken from create cart api
+    addToCartUrl = "https://master.demo.sylius.com/api/v2/shop/orders/"+tokenValue[0]+"/items"
 
-#form a Url for add to cart the item . Token Value is the value taken from create cart api
-addToCartUrl = "https://master.demo.sylius.com/api/v2/shop/orders/"+tokenValue[0]+"/items"
+    #requests.post() api finally add to cart
+    response = requests.post(addToCartUrl,data = addToCartData, headers= headers )
+    status_code =str(response.status_code)
 
-#requests.post() api finally add to cart
-response = requests.post(addToCartUrl,data = addToCartData, headers= headers )
-status_code =str(response.status_code)
-
-#validating response post
-if(response.status_code == 201):
-    print(status_code +" : Order resource created")
-elif(response.status_code ==400):
-    print(status_code +" : Invalid input")
-elif(response.status_code ==404 ):
-    print(status_code+" : Resource not found")
-elif(response.status_code == 422):
-    print(status_code +" : Unprocessable entity")
+    #validating response post
+    if(response.status_code == 201):
+        print(status_code +" : Order resource created\n")
+    elif(response.status_code ==400):
+        print(status_code +" : Invalid input\n")
+    elif(response.status_code ==404 ):
+        print(status_code+" : Resource not found\n")
+    elif(response.status_code == 422):
+        print(status_code +" : Unprocessable entity\n")
 
