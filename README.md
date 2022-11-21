@@ -336,7 +336,7 @@ A function in Orders.php will also be updated such that it increments the total_
 
 for unit  testng we will have the following function in CustomerTest.php
 
-/** @test */
+    /** @test */
     public function it_counts_customers_total_order_points(): void
     {
         $loadedData = $this->loadFixturesFromFiles(['authentication/customer.yaml']);
